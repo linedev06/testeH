@@ -17,7 +17,7 @@
     }
     .book-container {
       max-width: 800px;
-      margin: 40px auto;
+      margin: 20px auto;
       background-color: white;
       border-radius: 12px;
       overflow: hidden;
@@ -28,7 +28,7 @@
       text-align: center;
       background-color: #2C3E50;
       color: white;
-      font-size: 28px;
+      font-size: 24px; /* Ajustado para telas menores */
       font-weight: bold;
       border-bottom: 4px solid #3498db;
     }
@@ -37,7 +37,6 @@
       position: relative;
       overflow: hidden;
       background-color: #fff;
-      height: 1170px; /* Ajustado para uma altura mais adequada */
     }
     .pdf-canvas {
       width: 100%;
@@ -46,26 +45,22 @@
       border-radius: 6px;
     }
     .controls {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
+      position: relative; /* Alterado para evitar sobreposição */
       display: flex;
       justify-content: space-between;
-      padding: 0 10px;
+      padding: 10px 0;
     }
     .btn {
       background-color: #3498db;
       color: white;
       padding: 10px 15px;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 14px; /* Ajustado para telas menores */
       cursor: pointer;
       border: none;
       transition: background-color 0.3s ease;
-      display: flex;
-      align-items: center;
+      flex: 1; /* Para que os botões ocupem espaço igual */
+      margin: 0 5px; /* Espaçamento entre os botões */
     }
     .btn:hover {
       background-color: #2980b9;
@@ -75,21 +70,28 @@
       color: #ecf0f1;
     }
     .progress {
-      position: absolute;
-      top: 1px;
-      left: 50%;
-      transform: translateX(-50%);
+      text-align: center;
       font-size: 14px;
       color: #585858;
+      margin-top: 10px; /* Espaçamento acima do progresso */
+    }
+
+    /* Media Queries para dispositivos móveis */
+    @media (max-width: 600px) {
+      .book-header {
+        font-size: 20px; /* Tamanho da fonte menor em telas pequenas */
+      }
+      .btn {
+        font-size: 12px; /* Tamanho da fonte dos botões menor */
+      }
     }
   </style>
 </head>
 <body>
-    <a href="page.html"><button id="backButton" class="btn" style="margin-bottom: -70px; margin-left: 20px; margin-top: 20px; border-radius: 20px;">Voltar</button></a> 
+   <center> <a href="page.html"><button id="backButton" class="btn" style="margin: 20px; border-radius: 10px; width: 300px;">Voltar</button></a> </center>
   <div class="book-container">
     
     <div class="book-header">
-        
       Leitor de Livros
     </div>
 
@@ -105,7 +107,6 @@
       <div class="controls">
         <button id="prevPage" class="btn"><i class="fas fa-chevron-left"></i> Anterior</button>
         <button id="nextPage" class="btn">Próximo <i class="fas fa-chevron-right"></i></button>
-       <!-- Botão de Voltar -->
       </div>
     </div>
     
