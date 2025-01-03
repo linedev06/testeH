@@ -1,0 +1,262 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Kindle-like Book Reader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Book Reader</h1>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a class="text-gray-700 hover:text-gray-900" href="#">Home</a></li>
+                <li><a class="text-gray-700 hover:text-gray-900" href="#">Library</a></li>
+                <li><a class="text-gray-700 hover:text-gray-900" href="song.html">About</a></li>
+                <li><a class="text-gray-700 hover:text-gray-900" href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main class="container mx-auto px-4 py-8" id="mainContent">
+    <section class="mb-8">
+        <h2 class="text-xl font-bold mb-4">Featured Books</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="featuredBooks">
+          <a href="SLA.HTML"> <div class="bg-white p-4 rounded-lg shadow-md">
+                <img alt="Book cover with abstract design" class="w-full h-48 object-cover mb-4 rounded" height="300" src="img/Cartão de visita para eletricista moderno simples amarelo e preto (2).png" width="200"/>
+                <h3 class="text-lg font-semibold mb-2">Redemption</h3>
+                <p class="text-gray-700">Autor: Vitor Alves Felismino</p>
+            </div></a> 
+            <a href="SLA2.HTML"><div class="bg-white p-4 rounded-lg shadow-md">
+                <img alt="Book cover with abstract design" class="w-full h-48 object-cover mb-4 rounded" height="300" src="img/Cartão de visita para eletricista moderno simples amarelo e preto (4).png" width="200"/>
+                <h3 class="text-lg font-semibold mb-2">Entre Nós e o Fim</h3>
+                <p class="text-gray-700">Autor: Vitor Alves Felismino</p>
+            </div></a>
+            <a href="SLA3.HTML"><div class="bg-white p-4 rounded-lg shadow-md">
+                <img alt="Book cover with abstract design" class="w-full h-48 object-cover mb-4 rounded" height="300" src="img/Cartão de visita para eletricista moderno simples amarelo e preto (3).png" width="200"/>
+                <h3 class="text-lg font-semibold mb-2">Star Of Rebellion I</h3>
+                <p class="text-gray-700">Autor: Vitor Alves Felismino</p>
+            </div></a>
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <img alt="Book cover with abstract design" class="w-full h-48 object-cover mb-4 rounded" height="300" src="https://storage.googleapis.com/a1aa/image/vrQedRfyLDiePIUmA60qkhMpRdLtPtDym651SO4qDRjmFeFQB.jpg" width="200"/>
+                <h3 class="text-lg font-semibold mb-2">Book Title 4</h3>
+                <p class="text-gray-700">Author 4</p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 class="text-xl font-bold mb-4">Reading Now</h2>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center mb-4">
+                <img alt="Book cover with abstract design" class="w-24 h-36 object-cover rounded mr-4" height="150" src="https://storage.googleapis.com/a1aa/image/vrQedRfyLDiePIUmA60qkhMpRdLtPtDym651SO4qDRjmFeFQB.jpg" width="100"/>
+                <div>
+                    <h3 class="text-lg font-semibold">Current Book Title</h3>
+                    <p class="text-gray-700">Current Author</p>
+                </div>
+            </div>
+            <div class="bg-gray-200 p-4 rounded-lg">
+                <p class="text-gray-800 leading-relaxed">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="bg-white shadow-md mt-8">
+    <div class="container mx-auto px-4 py-4 text-center">
+        <p class="text-gray-700">© 2023 Book Reader. All rights reserved.</p>
+    </div>
+</footer>
+<div class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden" id="readingScreen">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full">
+        <h2 class="text-2xl font-bold text-center mb-4" id="chapterTitle">Chapter 1</h2>
+        <div class="flex justify-between items-center mb-4">
+            <button class="text-gray-700 hover:text-gray-900" id="prevPage">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <div class="flex items-center">
+                <button class="text-gray-700 hover:text-gray-900" id="decreaseFontSize">A-</button>
+                <button class="text-gray-700 hover:text-gray-900 ml-4" id="increaseFontSize">A+</button>
+            </div>
+            <button class="text-gray-700 hover:text-gray-900" id="nextPage">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+        <div class="overflow-y-auto h-96" id="bookContent">
+            <p class="text-gray-800 leading-relaxed mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+        </div>
+        <button class="bg-blue-500 text-white p-2 rounded mt-4" id="backToHome">Back to Home</button>
+    </div>
+</div>
+<div class="fixed bottom-4 right-4">
+    <button class="bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600" id="uploadButton">
+        <i class="fas fa-upload"></i>
+    </button>
+    <input accept=".txt,.pdf,.docx" class="hidden" id="fileInput" type="file"/>
+</div>
+<div class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden" id="uploadModal">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
+        <h2 class="text-2xl font-bold mb-4">Upload Book</h2>
+        <form id="uploadForm">
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2" for="bookTitle">Book Title</label>
+                <input class="w-full p-2 border border-gray-300 rounded" id="bookTitle" name="bookTitle" required type="text"/>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2" for="bookAuthor">Author</label>
+                <input class="w-full p-2 border border-gray-300 rounded" id="bookAuthor" name="bookAuthor" required type="text"/>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2" for="bookCover">Book Cover URL</label>
+                <input class="w-full p-2 border border-gray-300 rounded" id="bookCover" name="bookCover" required type="url"/>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2" for="bookFile">Book File (PDF, DOCX, TXT)</label>
+                <input accept=".txt,.pdf,.docx" class="w-full p-2 border border-gray-300 rounded" id="bookFile" name="bookFile" required type="file"/>
+            </div>
+            <div class="flex justify-end">
+                <button class="bg-blue-500 text-white p-2 rounded mr-2" id="cancelUpload" type="button">Cancel</button>
+                <button class="bg-blue-500 text-white p-2 rounded" type="submit">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementById('uploadButton').addEventListener('click', function() {
+        document.getElementById('uploadModal').classList.remove('hidden');
+    });
+
+    document.getElementById('cancelUpload').addEventListener('click', function() {
+        document.getElementById('uploadModal').classList.add('hidden');
+    });
+
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const bookTitle = document.getElementById('bookTitle').value;
+        const bookAuthor = document.getElementById('bookAuthor').value;
+        const bookCover = document.getElementById('bookCover').value;
+        const bookFile = document.getElementById('bookFile').files[0];
+
+        if (bookFile) {
+            const reader = new FileReader();
+            if (bookFile.type === 'application/pdf') {
+                reader.onload = function(e) {
+                    const loadingTask = pdfjsLib.getDocument({data: e.target.result});
+                    loadingTask.promise.then(function(pdf) {
+                        let content = '';
+                        const numPages = pdf.numPages;
+                        let pagesProcessed = 0;
+                        for (let i = 1; i <= numPages; i++) {
+                            pdf.getPage(i).then(function(page) {
+                                page.getTextContent().then(function(textContent) {
+                                    textContent.items.forEach(function(item) {
+                                        content += item.str + ' ';
+                                    });
+                                    pagesProcessed++;
+                                    if (pagesProcessed === numPages) {
+                                        document.getElementById('bookContent').innerHTML = content.split('\n').map(line => `<p class="text-gray-800 leading-relaxed mb-4">${line}</p>`).join('');
+                                        paginateContent();
+                                    }
+                                });
+                            });
+                        }
+                    });
+                };
+                reader.readAsArrayBuffer(bookFile);
+            } else if (bookFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                reader.onload = function(e) {
+                    const zip = new JSZip(e.target.result);
+                    const doc = new window.docxtemplater().loadZip(zip);
+                    const text = doc.getFullText();
+                    document.getElementById('bookContent').innerHTML = text.split('\n').map(line => `<p class="text-gray-800 leading-relaxed mb-4">${line}</p>`).join('');
+                    paginateContent();
+                };
+                reader.readAsArrayBuffer(bookFile);
+            } else {
+                reader.onload = function(e) {
+                    const content = e.target.result.split('\n').map(line => `<p class="text-gray-800 leading-relaxed mb-4">${line}</p>`).join('');
+                    document.getElementById('bookContent').innerHTML = content;
+                    paginateContent();
+                };
+                reader.readAsText(bookFile);
+            }
+
+            const newBook = document.createElement('div');
+            newBook.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow-md');
+            newBook.innerHTML = `
+                <img src="${bookCover}" alt="Book cover with abstract design" class="w-full h-48 object-cover mb-4 rounded" />
+                <h3 class="text-lg font-semibold mb-2">${bookTitle}</h3>
+                <p class="text-gray-700">${bookAuthor}</p>
+            `;
+            document.getElementById('featuredBooks').appendChild(newBook);
+
+            document.getElementById('uploadModal').classList.add('hidden');
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('readingScreen').classList.remove('hidden');
+        }
+    });
+
+    let currentFontSize = 16;
+    document.getElementById('increaseFontSize').addEventListener('click', function() {
+        currentFontSize += 2;
+        document.getElementById('bookContent').style.fontSize = currentFontSize + 'px';
+        paginateContent();
+    });
+
+    document.getElementById('decreaseFontSize').addEventListener('click', function() {
+        if (currentFontSize > 12) {
+            currentFontSize -= 2;
+            document.getElementById('bookContent').style.fontSize = currentFontSize + 'px';
+            paginateContent();
+        }
+    });
+
+    let currentPage = 0;
+    let pages = [];
+
+    function paginateContent() {
+        const content = document.getElementById('bookContent').innerHTML;
+        const lines = content.split('</p>');
+        const pageSize = Math.floor(document.getElementById('bookContent').clientHeight / (currentFontSize * 1.5));
+        pages = lines.map((_, i, arr) => arr.slice(i * pageSize, (i + 1) * pageSize).join('</p>'));
+        renderPage();
+    }
+
+    function renderPage() {
+        document.getElementById('bookContent').innerHTML = pages[currentPage] || '';
+    }
+
+    document.getElementById('nextPage').addEventListener('click', function() {
+        if (currentPage < pages.length - 1) {
+            currentPage++;
+            renderPage();
+        }
+    });
+
+    document.getElementById('prevPage').addEventListener('click', function() {
+        if (currentPage > 0) {
+            currentPage--;
+            renderPage();
+        }
+    });
+
+    document.getElementById('backToHome').addEventListener('click', function() {
+        document.getElementById('mainContent').classList.remove('hidden');
+        document.getElementById('readingScreen').classList.add('hidden');
+    });
+
+    paginateContent();
+</script>
+</body>
+</html>
