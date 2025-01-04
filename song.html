@@ -39,7 +39,6 @@
             margin-left: -40px;
         }
         .sidebar a {
-        
             color: #FF9A00;
             text-decoration: none;
             margin: 10px 0;
@@ -65,7 +64,7 @@
             align-items: center;
         }
         .header input {
-            margin-top:15px ;
+            margin-top: 15px;
             width: 300px;
             padding: 10px;
             border-radius: 20px;
@@ -136,7 +135,7 @@
             justify-content: space-between;
             align-items: center;
             transition: left 0.3s ease;
-            box-shadow: 0 -2px 5px rgba(255, 174, 0, 0.5);
+            box-shadow: 0 -2px 5px rgba( 255, 174, 0, 0.5);
         }
         .footer.shifted {
             left: 0;
@@ -200,7 +199,7 @@
 </head>
 <body>
     <div class="toggle-sidebar">
-        <i class="fas fa-bars" style="color: #ff9a00; margin-top:7px; "></i>
+        <i class="fas fa-bars" style="color: #ff9a00; margin-top:7px;"></i>
     </div>
     <div class="sidebar">
         <img alt="Spotify logo" src="Nartiva1.png"/>
@@ -212,35 +211,52 @@
     </div>
     <div class="main-content">
         <div class="header">
-            <input style="margin-left:30px; width:1500px;margin-right:40px;"  placeholder="Search for Artists, Songs, or Podcasts" type="text"/>
-            
+            <input style="margin-left:30px; width:1500px;margin-right:40px;" placeholder="Search for Artists, Songs, or Podcasts" type="text"/>
         </div>
         <div class="playlist">
             <h2>Playlist Name</h2>
             <div class="song" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" data-duration="3:45">
-                <img alt="Album cover" src="https://storage.googleapis.com/a1aa/image/q3zUeVwyAhxnPCFy62fvpTjiM9QIDTNdsZtgAaCoyf1nY9CoA.jpg"/>
+                <img alt="Album cover" src="NartivaS.png"style="border-radius: 100%;"/>
                 <div class="song-info">
-                    <span class="title">Song Title 1</span>
-                    <span class="artist">Artist Name </span>
+                    <span class="title">Lofi Chill Beats 1</span>
+                    <span class="artist">Artist Name 1</span>
                     <span class="duration">3:45</span>
                 </div>
                 <i class="fas fa-heart like-button" data-liked="false"></i>
             </div>
             <div class="song" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" data-duration="4:00">
-                <img alt="Album cover" src="https://storage.googleapis.com/a1aa/image/q3zUeVwyAhxnPCFy62fvpTjiM9QIDTNdsZtgAaCoyf1nY9CoA.jpg"/>
+                <img alt="Album cover" src="NartivaS.png"style="border-radius: 100%;"/>
                 <div class="song-info">
-                    <span class="title">Song Title 2</span>
-                    <span class="artist">Artist Name </span>
+                    <span class="title">Lofi Chill Beats 2</span>
+                    <span class="artist">Artist Name 2</span>
                     <span class="duration">4:00</span>
                 </div>
                 <i class="fas fa-heart like-button" data-liked="false"></i>
             </div>
             <div class="song" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" data-duration="2:30">
-                <img alt="Album cover" src="https://storage.googleapis.com/a1aa/image/q3zUeVwyAhxnPCFy62fvpTjiM9QIDTNdsZtgAaCoyf1nY9CoA.jpg"/>
+                <img alt="Album cover" src="NartivaS.png"style="border-radius: 100%;"/>
                 <div class="song-info">
-                    <span class="title">Song Title 3</span>
-                    <span class="artist">Artist Name </span>
+                    <span class="title">Lofi Chill Beats 3</span>
+                    <span class="artist">Artist Name 3</span>
                     <span class="duration">2:30</span>
+                </div>
+                <i class="fas fa-heart like-button" data-liked="false"></i>
+ </div>
+            <div class="song" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" data-duration="3:15">
+                <img alt="Album cover" src="NartivaS.png"  style="border-radius: 100%;"/>
+                <div class="song-info">
+                    <span class="title">Lofi Chill Beats 4</span>
+                    <span class="artist">Artist Name 4</span>
+                    <span class="duration">3:15</span>
+                </div>
+                <i class="fas fa-heart like-button" data-liked="false"></i>
+            </div>
+            <div class="song" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" data-duration="4:20">
+                <img alt="Album cover" src="NartivaS.png"style="border-radius: 100%;"/>
+                <div class="song-info">
+                    <span class="title">Lofi Chill Beats 5</span>
+                    <span class="artist">Artist Name 5</span>
+                    <span class="duration">4:20</span>
                 </div>
                 <i class="fas fa-heart like-button" data-liked="false"></i>
             </div>
@@ -248,18 +264,19 @@
     </div>
     <div class="footer">
         <div class="controls">
-            <i class="fas fa-step-backward"></i>
-            <i class="fas fa-play-circle"></i>
-            <i class="fas fa-step-forward"></i>
+            <i class="fas fa-step-backward" id="prev"></i>
+            <i class="fas fa-play-circle" id="play"></i>
+            <i class="fas fa-step-forward" id="next"></i>
         </div>
         <div class="progress">
-            <input type="range" value="0" max="100" step="1"/>
+            <input type="range" value="0" max="100" step="1" id="progress"/>
         </div>
         <div class="volume">
             <i class="fas fa-volume-up"></i>
-            <input type="range" value="50" max="100" step="1"/>
+            <input type="range" value="50" max="100" step="1" id="volume"/>
         </div>
     </div>
+    <audio id="audio" src=""></audio>
     <script>
         const sidebarToggle = document.querySelector('.toggle-sidebar');
         const sidebar = document.querySelector('.sidebar');
@@ -267,19 +284,89 @@
         const footer = document.querySelector('.footer');
         const songs = document.querySelectorAll('.song');
         const likeButtons = document.querySelectorAll('.like-button');
-        
+        const audio = document.getElementById('audio');
+        const playButton = document.getElementById('play');
+        const progress = document.getElementById('progress');
+        const volume = document.getElementById('volume');
+        let currentSongIndex = 0;
+
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('closed');
             mainContent.classList.toggle('shifted');
             footer.classList.toggle('shifted');
         });
-        
+
+        songs.forEach((song, index) => {
+            song.addEventListener('click', () => {
+                currentSongIndex = index;
+                loadSong(song);
+                playSong();
+            });
+        });
+
         likeButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 const liked = e.target.dataset.liked === 'true';
                 e.target.dataset.liked = !liked;
                 e.target.classList.toggle('liked', !liked);
             });
+        });
+
+        playButton.addEventListener('click', () => {
+            if (audio.paused) {
+                playSong();
+            } else {
+                pauseSong();
+            }
+        });
+
+        function loadSong(song) {
+            audio.src = song.getAttribute('data-src');
+            document.querySelector('.title').textContent = song.querySelector('.title').textContent;
+            document.querySelector('.artist').textContent = song.querySelector('.artist').textContent;
+            progress.value = 0;
+        }
+
+        function playSong() {
+            audio.play();
+            playButton.classList.replace('fa-play-circle', 'fa-pause-circle');
+        }
+
+        function pauseSong() {
+            audio.pause();
+            playButton.classList.replace('fa-pause-circle', 'fa-play-circle');
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            const progressPercent = (audio.currentTime / audio.duration) * 100;
+            progress.value = progressPercent;
+        });
+
+        progress.addEventListener('input', () => {
+            const seekTime = (progress.value / 100) * audio.duration;
+            audio.currentTime = seekTime;
+        });
+
+        volume.addEventListener('input', () => {
+            audio.volume = volume.value / 100;
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(songs[currentSongIndex]);
+            playSong();
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            loadSong(songs[currentSongIndex]);
+            playSong();
+        });
+
+        audio.addEventListener('ended', () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(songs[currentSongIndex]);
+            playSong();
         });
     </script>
 </body>
