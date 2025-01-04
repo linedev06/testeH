@@ -29,7 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
 </head>
 <body class="bg-gray-100 text-gray-900">
-<header class="bg-white shadow-md">
+<header class="bg-white shadow-md fixed">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center"><img alt="Book cover with abstract design" class="w-auto h-12 object-cover mb-4 rounded" src="Nartiva.png" style="margin-right: 5px; height: 150px; width: 100px;" />
         <nav>
             <ul class="flex space-x-4"style="margin-right: 35px;" >
@@ -41,33 +41,56 @@
         </nav>
     </div>
 </header>
-<main class="container mx-auto px-4 py-8" id="mainContent">
+<header class="bg-white shadow-md fixed w-full z-10">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <img alt="Book cover with abstract design" 
+             class="w-auto h-12 object-cover mb-4 rounded" 
+             src="Nartiva.png" 
+             style="margin-right: 5px; height: 150px; width: 100px;" />
+        <nav>
+            <ul class="flex space-x-4" style="margin-right: 35px;">
+                <li><a class="text-gray-700 hover:text-gray-900" href="#">Home</a></li>
+                <li><a class="text-gray-700 hover:text-gray-900" href="song.html">Sound</a></li>
+                <li><a class="text-gray-700 hover:text-gray-900" href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="container mx-auto px-4 py-8" id="mainContent" style="padding-top: 260px;"> 
     <section class="mb-8">
         <h2 class="text-xl font-bold mb-4">Livros em destaques</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="featuredBooks">
-          <a href="SLA.HTML"> <div class="bg-white p-4 rounded-lg shadow-md">
+          <a href="SLA.HTML">
+            <div class="bg-white p-4 rounded-lg shadow-md">
                 <img alt="" class="w-full h-48 object-cover mb-4 rounded" height="300" src="vis.png" width="200"/>
                 <h3 class="text-lg font-semibold mb-2">Redemption</h3>
                 <p class="text-gray-700">Autor: Vitor Alves Felismino</p>
-            </div></a> 
-            <a href="SLA2.HTML"><div class="bg-white p-4 rounded-lg shadow-md">
-                
+            </div>
+          </a> 
+          <a href="SLA2.HTML">
+            <div class="bg-white p-4 rounded-lg shadow-md">
                 <img alt="Book cover with abstract design" class="w-full h-48 object-cover mb-4 rounded" height="300" src="vis3.png" width="200"/>
                 <h3 class="text-lg font-semibold mb-2">Entre Nós e o Fim</h3>
                 <p class="text-gray-700">Autor: Vitor Alves Felismino</p>
-            </div></a>
-            <a href="SLA3.HTML"><div class="bg-white p-4 rounded-lg shadow-md">
+            </div>
+          </a>
+          <a href="SLA3.HTML">
+            <div class="bg-white p-4 rounded-lg shadow-md">
                 <img alt="Book cover with abstract design" class="w-full h-48 object-cover mb-4 rounded" height="300" src="vis2.png" width="200"/>
                 <h3 class="text-lg font-semibold mb-2">Star Of Rebellion I</h3>
                 <p class="text-gray-700">Autor: Vitor Alves Felismino</p>
-            </div></a>
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <img alt="Book cover with abstract design" class="w-full h-48 object-cover mb-4 rounded" height="300" src="https://storage.googleapis.com/a1aa/image/vrQedRfyLDiePIUmA60qkhMpRdLtPtDym651SO4qDRjmFeFQB.jpg" width="200"/>
-                <h3 class="text-lg font-semibold mb-2">Book Title 4</h3>
-                <p class="text-gray-700">Author 4</p>
             </div>
+          </a>
+          <div class="bg-white p-4 rounded-lg shadow-md">
+              <img alt="Book cover with abstract design" class="w-full h-48 object-cover mb-4 rounded" height="300" src="https://storage.googleapis.com/a1aa/image/vrQedRfyLDiePIUmA60qkhMpRdLtPtDym651SO4qDRjmFeFQB.jpg" width="200"/>
+              <h3 class="text-lg font-semibold mb-2">Book Title 4</h3>
+              <p class="text-gray-700">Author 4</p>
+          </div>
         </div>
     </section>
+
+
     <section>
         <h2 class="text-xl font-bold mb-4">Lendo agora</h2>
         <div class="bg-white p-6 rounded-lg shadow-md" id="currentBook">

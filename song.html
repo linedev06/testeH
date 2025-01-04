@@ -16,6 +16,7 @@
             transition: background 0.3s;
         }
         .sidebar {
+            z-index: 10;
             width: 240px;
             height: 100vh;
             background-color: #FFFFFF;
@@ -32,11 +33,13 @@
             transform: translateX(-100%);
         }
         .sidebar img {
+            margin-top: -70px;
             width: 300px;
-            margin-bottom: 5px; 
+            margin-bottom: -20px; 
             margin-left: -40px;
         }
         .sidebar a {
+        
             color: #FF9A00;
             text-decoration: none;
             margin: 10px 0;
@@ -44,7 +47,7 @@
             transition: color 0.3s;
         }
         .sidebar a:hover {
-            color: #FFFFFF;
+            color: #000000;
         }
         .main-content {
             margin-left: 240px;
@@ -122,6 +125,7 @@
             color: #000000;
         }
         .footer {
+            z-index: 1;
             position: fixed;
             bottom: 0;
             left: 240px;
