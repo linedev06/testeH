@@ -33,128 +33,129 @@
                 <a class="text-gray-300 hover:text-gray-100" href="song.html">Harmoni</a>
                 <a class="text-gray-300 hover:text-gray-100" href="wor.html">Escreva</a>
             </nav>
-        </div>
-    </header>
-
-    <main class="container mx-auto px-4 py-8 flex-grow">
-        <div class="bg-gray-800 shadow-md rounded-lg overflow-hidden">
-            <div class="flex justify-between items-center p-4 border-b border-gray-700">
-                <div class="flex items-center space-x-4">
-                    <button id="prevPage" class="text-gray-300 hover:text-gray-100">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <h2 class="text-xl font-bold">The Great Gatsby</h2>
+          </div>
+        </header>
+    
+        <main class="container mx-auto px-4 py-8 flex-grow">
+            <div class="bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                <div class="flex justify-between items-center p-4 border-b border-gray-700">
+                    <div class="flex items-center space-x-4">
+                        <button id="prevPage" class="text-gray-300 hover:text-gray-100">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h2 class="text-xl font-bold">The Great Gatsby</h2>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button id="fullscreenButton" class="text-gray-300 hover:text-gray-100">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <button id="fullscreenButton" class="text-gray-300 hover:text-gray-100">
-                        <i class="fas fa-expand"></i>
-                    </button>
+                <div class="p-4" id="pdfContainer">
+                    <canvas id="pdfCanvas" class="pdf-canvas"></canvas>
+                    <div id="progress" class="text-center text-gray-400 mt-2">Página 1 de 100</div>
                 </div>
             </div>
-            <div class="p-4">
-                <canvas id="pdfCanvas" class="pdf-canvas"></canvas>
-                <div id="progress" class="text-center text-gray-400 mt-2">Página 1 de 100</div>
-            </div>
-        </div>
-    </main>
-
-    <footer class="bg-gray-800 text-gray-300 p-4 text-center">
-        <p>&copy; 2023 Read Kindle. Todos os direitos reservados.</p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
-    <script>
-        const url = 'Redemption VERSÃO DO WORD CERTA (Recuperação Automática).pdf'; // Caminho do seu PDF
-        let currentPage = 1;
-        let pdfDoc = null;
-
-        // Carregar o PDF
-        const loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(function(pdf) {
-            pdfDoc = pdf;
-            console.log ('PDF carregado');
-            renderPage(currentPage);
-        }, function(error) {
-            console.error('Erro ao carregar o PDF:', error);
-        });
-
-        // Função para renderizar uma página
-        function renderPage(pageNum) {
-            pdfDoc.getPage(pageNum).then(function(page) {
-                const scale = 1.5; // Escala para o PDF
-                const viewport = page.getViewport({ scale: scale });
-                const canvas = document.getElementById('pdfCanvas');
-                const context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                const renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
-                page.render(renderContext).promise.then(function() {
-                    document.getElementById('progress').textContent = `Página ${pageNum} de ${pdfDoc.numPages}`;
-                });
+        </main>
+    
+        <footer class="bg-gray-800 text-gray-300 p-4 text-center">
+            <p>&copy; 2023 Read Kindle. Todos os direitos reservados.</p>
+        </footer>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+        <script>
+            const url = 'Redemption VERSÃO DO WORD CERTA (Recuperação Automática).pdf'; // Caminho do seu PDF
+            let currentPage = 1;
+            let pdfDoc = null;
+    
+            // Carregar o PDF
+            const loadingTask = pdfjsLib.getDocument(url);
+            loadingTask.promise.then(function(pdf) {
+                pdfDoc = pdf;
+                console.log('PDF carregado');
+                renderPage(currentPage);
+            }, function(error) {
+                console.error('Erro ao carregar o PDF:', error);
             });
-        }
-
-        // Navegação entre páginas
-        document.getElementById('prevPage').addEventListener('click', function() {
-            if (currentPage <= 1) return;
-            currentPage--;
-            renderPage(currentPage);
-        });
-
-        document.getElementById('fullscreenButton').addEventListener('click', function() {
+    
+            // Função para renderizar uma página
+            function renderPage(pageNum) {
+     pdfDoc.getPage(pageNum).then(function(page) {
+                    const scale = 1.5; // Escala para o PDF
+                    const viewport = page.getViewport({ scale: scale });
+                    const canvas = document.getElementById('pdfCanvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+    
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext).promise.then(function() {
+                        document.getElementById('progress').textContent = `Página ${pageNum} de ${pdfDoc.numPages}`;
+                    });
+                });
+            }
+    
+            // Navegação entre páginas
+            document.getElementById('prevPage').addEventListener('click', function() {
+                if (currentPage <= 1) return;
+                currentPage--;
+                renderPage(currentPage);
+            });
+    
+            document.getElementById('fullscreenButton').addEventListener('click', function() {
+                const container = document.getElementById('pdfContainer');
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.mozRequestFullScreen) {
+                    container.mozRequestFullScreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+            });
+    
+            // Navegação por gestos
+            let startX;
             const canvas = document.getElementById('pdfCanvas');
-            if (canvas.requestFullscreen) {
-                canvas.requestFullscreen();
-            } else if (canvas.mozRequestFullScreen) {
-                canvas.mozRequestFullScreen();
-            } else if (canvas.webkitRequestFullscreen) {
-                canvas.webkitRequestFullscreen();
-            } else if (canvas.msRequestFullscreen) {
-                canvas.msRequestFullscreen();
-            }
-        });
-
-        // Navegação por gestos
-        let startX;
-        canvas.addEventListener('touchstart', function(event) {
-            startX = event.touches[0].clientX;
-        });
-
-        canvas.addEventListener('touchmove', function(event) {
-            const endX = event.touches[0].clientX;
-            if (startX - endX > 50) {
-                // Deslizar para a esquerda
-                if (currentPage < pdfDoc.numPages) {
-                    currentPage++;
-                    renderPage(currentPage);
+            canvas.addEventListener('touchstart', function(event) {
+                startX = event.touches[0].clientX;
+            });
+    
+            canvas.addEventListener('touchmove', function(event) {
+                const endX = event.touches[0].clientX;
+                if (startX - endX > 50) {
+                    // Deslizar para a esquerda
+                    if (currentPage < pdfDoc.numPages) {
+                        currentPage++;
+                        renderPage(currentPage);
+                    }
+                } else if (endX - startX > 50) {
+                    // Deslizar para a direita
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderPage(currentPage);
+                    }
                 }
-            } else if (endX - startX > 50) {
-                // Deslizar para a direita
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderPage(currentPage);
+            });
+    
+            // Teclas de atalho
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'ArrowRight') {
+                    if (currentPage < pdfDoc.numPages) {
+                        currentPage++;
+                        renderPage(currentPage);
+                    }
+                } else if (event.key === 'ArrowLeft') {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderPage(currentPage);
+                    }
                 }
-            }
-        });
-
-        // Teclas de atalho
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight') {
-                if (currentPage < pdfDoc.numPages) {
-                    currentPage++;
-                    renderPage(currentPage);
-                }
-            } else if (event.key === 'ArrowLeft') {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderPage(currentPage);
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+            });
+        </script>
+    </body>
+    </html>
