@@ -1,0 +1,159 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Word-like Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        #editor {
+            outline: none;
+            resize: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white p-6 shadow-md flex flex-col md:flex-center justify-center items-center md:justify-between">
+        <!-- Logo e Título -->
+        <div class="flex items-center space-x-6">
+            <img alt="Company logo" height="40" src="Nartiva.png" width="200" class="md:mr-6"/>
+           <a href="index.html"> <h1  style="border: 2px solid rgb(252, 164, 0); border-radius: 20px; padding: 5px;" class="text-2xl font-bold text-gray-800 tracking-tighter">Voltar ao Nártiva</h1></a>
+        </div>
+        
+        <!-- Navegação -->
+        
+    </header>
+    
+    
+    
+
+
+    
+
+    <!-- Toolbar -->
+    <div class="bg-gray-200 p-2 flex flex-wrap items-center space-x-2 md:space-x-4">
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="formatText('bold')">
+            <i class="fas fa-bold"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="formatText('italic')">
+            <i class="fas fa-italic"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="formatText('underline')">
+            <i class="fas fa-underline"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="alignText('Left')">
+            <i class="fas fa-align-left"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="alignText('Center')">
+            <i class="fas fa-align-center"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="alignText('Right')">
+            <i class="fas fa-align-right"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="alignText('Full')">
+            <i class="fas fa-align-justify"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="insertList('ul')">
+            <i class="fas fa-list-ul"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="insertList('ol')">
+            <i class="fas fa-list-ol"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="openInsertLinkModal()">
+            <i class="fas fa-link"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="openInsertImageModal()">
+            <i class="fas fa-image"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="document.execCommand('cut')">
+            <i class="fas fa-cut"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="document.execCommand('copy')">
+            <i class="fas fa-copy"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="document.execCommand('undo')">
+            <i class="fas fa-undo"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="document.execCommand('redo')">
+            <i class="fas fa-redo"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="openFontSelectionModal()">
+            <i class="fas fa-font"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="openHighlightColorModal()">
+            <i class="fas fa-highlighter"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="formatText('strikeThrough')">
+            <i class="fas fa-strikethrough"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="formatText('subscript')">
+            <i class="fas fa-subscript"></i>
+        </button>
+        <button class="p-2 hover:bg-gray-300 rounded" onclick="formatText('superscript')">
+            <i class="fas fa-superscript"></i>
+        </button>
+    </div>
+    <!-- Main Content Area -->
+    <main class="p-4">
+        <div class="bg-white p-6 rounded shadow-md">
+            <div id="editor" class="w-full h-screen p-4 border border-gray-300 rounded bg-white" contenteditable="true">
+                
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div id="modals"></div>
+
+    <script>
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function alignText(alignment) {
+            document.execCommand('justify' + alignment, false, null);
+        }
+
+        function insertList(type) {
+            document.execCommand(type === 'ul' ? 'insertUnorderedList' : 'insertOrderedList', false, null);
+        }
+
+        function openInsertLinkModal() {
+            const url = prompt("Enter the link URL:");
+            if (url) {
+                document.execCommand('createLink', false, url);
+            }
+        }
+
+        function openInsertImageModal() {
+            const url = prompt("Enter the image URL:");
+            if (url) {
+                document.execCommand('insertImage', false, url);
+            }
+        }
+
+        function changeFont() {
+            const font = prompt("Enter the font family (e.g., Arial):");
+            if (font) {
+                document.execCommand('fontName', false, font);
+            }
+        }
+
+        function highlightText() {
+            const color = prompt("Enter a highlight color (e.g., yellow):", "yellow");
+            if (color) {
+                document.execCommand('backColor', false, color);
+            }
+        }
+
+
+
+
+    </script>
+</body>
+</html>
