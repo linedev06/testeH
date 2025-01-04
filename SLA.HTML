@@ -85,6 +85,26 @@
         font-size: 12px; /* Tamanho da fonte dos botões menor */
       }
     }
+    /* Estilo para o modo tela cheia */
+/* Modo tela cheia */
+#reader-area:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff; /* Fundo branco para o PDF */
+}
+
+#pdfCanvas {
+  width: 100%;
+  height: auto; /* Ajusta automaticamente à largura */
+  background-color: #fff; /* Fundo branco */
+}
+
+
   </style>
 </head>
 <body>
@@ -105,15 +125,70 @@
 
       <!-- Controls -->
       <div class="controls">
+        <button id="fullscreenButton" class="btn"><i class="fas fa-expand"></i> Tela Cheia</button>
         <button id="prevPage" class="btn"><i class="fas fa-chevron-left"></i> Anterior</button>
         <button id="nextPage" class="btn">Próximo <i class="fas fa-chevron-right"></i></button>
       </div>
+      
     </div>
     
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
   <script>
+document.getElementById('fullscreenButton').addEventListener('click', function () {
+  const readerArea = document.getElementById('reader-area');
+  
+  if (!document.fullscreenElement) {
+    // Entrar em tela cheia
+    readerArea.requestFullscreen().catch((err) => {
+      console.error(`Erro ao entrar em tela cheia: ${err.message}`);
+    });
+  } else {
+    // Sair de tela cheia
+    document.exitFullscreen();
+  }
+});
+
+// Atualizar o tamanho do canvas ao entrar ou sair de tela cheia
+document.addEventListener('fullscreenchange', () => {
+  renderPage(currentPage);
+});
+
+// Função para renderizar o PDF ajustado à tela
+function renderPage(pageNum) {
+  pdfDoc.getPage(pageNum).then(function (page) {
+    const canvas = document.getElementById('pdfCanvas');
+    const context = canvas.getContext('2d');
+
+    // Ajustar o PDF para preencher toda a tela
+    const scale = Math.min(window.innerWidth / page.getViewport({ scale: 1 }).width, window.innerHeight / page.getViewport({ scale: 1 }).height);
+    const viewport = page.getViewport({ scale: scale });
+
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+
+    const renderContext = {
+      canvasContext: context,
+      viewport: viewport,
+    };
+    page.render(renderContext);
+
+    // Atualizar o progresso
+    document.getElementById('progress').textContent = `Página ${pageNum} de ${pdfDoc.numPages}`;
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
     const url = 'Redemption VERSÃO DO WORD CERTA (Recuperação Automática).pdf'; // Caminho do seu PDF
     let currentPage = 1;
     let pdfDoc = null;

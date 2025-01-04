@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Military Control - Tactical Operations</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #101010;
+            color: #00FF00;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        h1, h2 {
+            color: #00FF00;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .button {
+            background-color: #1C1C1C;
+            color: #00FF00;
+            border: 1px solid #00FF00;
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            background-color: #00FF00;
+            color: #101010;
+        }
+        #terminal-output {
+            background-color: #1C1C1C;
+            padding: 20px;
+            border-radius: 8px;
+            height: 400px;
+            overflow-y: scroll;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        #map, #trajectory {
+            background-color: #1C1C1C;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        #map {
+            height: 400px;
+            margin-bottom: 20px;
+        }
+        #blueScreen {
+            display: none;
+            background-color: #00008B;
+            color: #fff;
+            padding: 20px;
+            font-size: 20px;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+        }
+        #virusSimulation {
+            display: none;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .button:disabled {
+            background-color: #555;
+            color: #333;
+        }
+        .missile-button {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Military Control - Tactical Operations</h1>
+    <button class="button" onclick="startSimulation()">Initialize Operation</button>
+    <button class="button" onclick="openMissileControl()">Missile Control</button>
+    <button class="button" onclick="openVirusSimulation()">Launch Virus</button>
+
+    <div id="terminal-output"></div>
+
+    <div id="missileControl">
+        <h2>Missile Control</h2>
+        <div id="map"></div>
+        <div id="trajectory"></div>
+        <div class="missile-button">
+            <button class="button" onclick="launchMissile()">Launch Missile</button>
+            <button class="button" onclick="cancelMissile()">Cancel Missile</button>
+        </div>
+    </div>
+
+    <div id="virusSimulation">
+        <h2>Virus Simulation - Execute Glitch</h2>
+        <button class="button" onclick="launchVirus()">Launch Virus</button>
+    </div>
+
+    <div id="blueScreen">
+        <h2>** SYSTEM ERROR **</h2>
+        <p>System corrupted. Files lost. Shutting down...</p>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    let terminalOutput = document.getElementById("terminal-output");
+    let missileLaunched = false;
+    let missilePath = ['North', 'East', 'South', 'West'];
+    let machineData = [
+        { ip: "192.168.1.10", location: "Target Area Alpha", lat: 40.7128, lon: -74.0060 },
+        { ip: "192.168.1.20", location: "Target Area Beta", lat: 34.0522, lon: -118.2437 },
+        { ip: "192.168.1.30", location: "Target Area Gamma", lat: 51.5074, lon: -0.1278 },
+        { ip: "192.168.1.40", location: "Target Area Delta", lat: 48.8566, lon: 2.3522 }
+    ];
+
+    let map;
+    let missileMarker;
+    
+    // Start simulation
+    function startSimulation() {
+        terminalOutput.innerHTML = 'Initializing military control system...\n';
+        setTimeout(() => {
+            terminalOutput.innerHTML += 'System initialized. Welcome to Tactical Operations.\n';
+            terminalOutput.innerHTML += 'Use the controls to launch missiles or execute a virus...\n';
+        }, 1000);
+    }
+
+    // Open Missile Control app
+    function openMissileControl() {
+        terminalOutput.innerHTML += 'Opening Missile Control...\n';
+        displayMachineData();
+        document.getElementById('missileControl').style.display = 'block';
+        initializeMap();
+    }
+
+    // Initialize the Map with Leaflet.js (Simplified map)
+    function initializeMap() {
+        map = L.map('map', {
+            zoomControl: false // Disable zoom control to make the map simpler
+        }).setView([40.7128, -74.0060], 5); // Default to a central location (New York)
+
+        // Using a simple, less detailed tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 10, // Limiting zoom to avoid too much detail
+            minZoom: 5 // Starting zoom level
+        }).addTo(map);
+    }
+
+    // Display machine data (IPs and locations)
+    function displayMachineData() {
+        let mapDiv = document.getElementById('map');
+        mapDiv.innerHTML = "Machine Locations:\n";
+        machineData.forEach(machine => {
+            mapDiv.innerHTML += `IP: ${machine.ip} - Location: ${machine.location}\n`;
+        });
+    }
+
+    // Launch Missile
+    function launchMissile() {
+        if (missileLaunched) {
+            terminalOutput.innerHTML += 'Missile already launched. Please cancel before firing again.\n';
+            return;
+        }
+        missileLaunched = true;
+        terminalOutput.innerHTML += 'Missile launch initiated...\n';
+        simulateMissileTrajectory();
+    }
+
+    // Simulate missile trajectory and update the map
+    function simulateMissileTrajectory() {
+        let trajectory = document.getElementById('trajectory');
+        let index = 0;
+        let missilePositions = [];
+        missileMarker = L.marker([40.7128, -74.0060]).addTo(map);  // Start at New York (Lat, Lon)
+        missilePositions.push([40.7128, -74.0060]);
+        
+        let interval = setInterval(function() {
+            if (index < missilePath.length) {
+                terminalOutput.innerHTML += `Missile trajectory: ${missilePath[index]}...\n`;
+                trajectory.innerHTML = `Missile is heading ${missilePath[index]}...`;
+                // Move the missile marker to a new position on the map (this is a simulation)
+                missileMarker.setLatLng([40.7128 + (index * 0.1), -74.0060 + (index * 0.1)]); // Simulate movement
+                missilePositions.push([40.7128 + (index * 0.1), -74.0060 + (index * 0.1)]);
+                index++;
+            } else {
+                clearInterval(interval);
+                terminalOutput.innerHTML += 'Missile has reached its target.\n';
+                trajectory.innerHTML = 'Missile has hit the target.';
+                missileMarker.setLatLng([40.7128 + (index * 0.1), -74.0060 + (index * 0.1)]);
+                L.polyline(missilePositions, { color: 'red' }).addTo(map); // Show missile path
+            }
+        }, 2000);
+    }
+
+    // Cancel Missile Launch
+    function cancelMissile() {
+        if (!missileLaunched) {
+            terminalOutput.innerHTML += 'No missile launched to cancel.\n';
+            return;
+        }
+        missileLaunched = false;
+        terminalOutput.innerHTML += 'Missile launch canceled.\n';
+        document.getElementById('trajectory').innerHTML = 'Missile launch canceled.';
+        missileMarker.remove();
+    }
+
+    // Open Virus Simulation
+    function openVirusSimulation() {
+        terminalOutput.innerHTML += 'Opening Virus Simulation...\n';
+        document.getElementById('virusSimulation').style.display = 'block';
+    }
+
+    // Launch Virus (Glitch)
+    function launchVirus() {
+        terminalOutput.innerHTML += 'Launching virus...\n';
+        let glitchInterval = setInterval(() => {
+            let randomChar = Math.random() < 0.5 ? '0' : '1';
+            terminalOutput.innerHTML += randomChar;
+            if (Math.random() < 0.05) {
+                terminalOutput.innerHTML += '\n';
+            }
+            if (Math.random() < 0.1) {
+                clearInterval(glitchInterval);
+                terminalOutput.innerHTML += '\n** SYSTEM ERROR **\n';
+                triggerBlueScreen();
+            }
+        }, 50);
+    }
+
+    // Trigger Blue Screen after virus launch
+    function triggerBlueScreen() {
+        document.getElementById('blueScreen').style.display = 'block';
+    }
+
+</script>
+</body>
+</html>
