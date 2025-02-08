@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradutor Ildarell, Callion Guendar, Guendálir</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-size: 1.2em;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            margin-top: 8px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            background-color: #FF9A00;
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+        .form-group button:hover {
+            background-color: #e87c00;
+        }
+        .results {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .results div {
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tradutor para Ildarell, Callion Guendar e Guendálir</h1>
+        <form id="translateForm">
+            <div class="form-group">
+                <label for="wordInput">Digite uma palavra para traduzir:</label>
+                <input type="text" id="wordInput" placeholder="Digite aqui">
+            </div>
+            <div class="form-group">
+                <label for="languageSelect">Escolha o idioma para tradução:</label>
+                <select id="languageSelect">
+                    <option value="Ildarell">Ildarell</option>
+                    <option value="CallionGuendar">Callion Guendar</option>
+                    <option value="Guendálir">Guendálir</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="button" onclick="translateWord()">Traduzir</button>
+            </div>
+        </form>
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        function translateWord() {
+            const wordInput = document.getElementById('wordInput').value;
+            const languageSelect = document.getElementById('languageSelect').value;
+            const resultsDiv = document.getElementById('results');
+            
+            let translations = {
+                "estrela": {
+                    Ildarell: "Elenë",
+                    CallionGuendar: "Elenor",
+                    Guendálir: "Elen"
+                }
+            };
+            
+            let word = wordInput.toLowerCase();
+            if (translations[word]) {
+                let translation = translations[word];
+                resultsDiv.innerHTML = `
+                    <div><strong>Ildarell:</strong> ${translation.Ildarell}</div>
+                    <div><strong>Callion Guendar:</strong> ${translation.CallionGuendar}</div>
+                    <div><strong>Guendálir:</strong> ${translation.Guendálir}</div>
+                `;
+            } else {
+                resultsDiv.innerHTML = "<div>Palavra não encontrada para tradução.</div>";
+            }
+        }
+    </script>
+</body>
+</html>
