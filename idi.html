@@ -79,6 +79,29 @@
     </div>
 
     <script>
+import { useEffect, useState } from "react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+
+export default function AutoOpenModal() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setOpen(true); // Abre o modal automaticamente ao carregar a página
+  }, []);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent>
+        <DialogTitle>Bem-vindo!</DialogTitle>
+        <p>Este modal abriu automaticamente ao carregar a página.</p>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+
+
+
         function translateWord() {
             const wordInput = document.getElementById('wordInput').value;
             const languageSelect = document.getElementById('languageSelect').value;
